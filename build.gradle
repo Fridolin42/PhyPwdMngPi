@@ -11,6 +11,9 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/com.fazecast/jSerialComm
+    implementation("com.fazecast:jSerialComm:2.11.0")
+
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 
