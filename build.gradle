@@ -27,3 +27,7 @@ kotlin {
 application {
     mainClass = "de.fridolin1.MainKt"
 }
+
+tasks.named("run", JavaExec) {
+    standardInput = System.in
+}

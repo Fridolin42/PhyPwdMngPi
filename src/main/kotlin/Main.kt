@@ -28,16 +28,23 @@ fun sender() {
     val consoleReader = BufferedReader(InputStreamReader(System.`in`))
     val writer = BufferedWriter(OutputStreamWriter(comPort.outputStream))
     try {
+        var ask = true
         while (true) {
+            if (ask) {
+                print("Eingabe: ")
+                ask = false
+            }
             val input = consoleReader.readLine()
             if (input == null) continue
+            ask = true
+            println(input)
             writer.write(input + "\n")
             writer.flush()
+            if (input == "exit")
+                break
             val line = reader.readLine()
             if (line != null) {
                 println("Received: $line")
-                if (input == "exit")
-                    break
             } else {
                 println("Stream closed")
                 break
@@ -46,6 +53,7 @@ fun sender() {
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {
+        println("closing...")
         reader.close()
         comPort.closePort()
         consoleReader.close()
