@@ -30,6 +30,7 @@ fun sender() {
     try {
         while (true) {
             val input = consoleReader.readLine()
+            if (input == null) continue
             writer.write(input + "\n")
             writer.flush()
             val line = reader.readLine()
