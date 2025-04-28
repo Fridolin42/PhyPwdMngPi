@@ -1,11 +1,16 @@
 package de.fridolin1
 
 import de.fridolin1.io.data.ExampleData
+import de.fridolin1.io.data.GetPassword
+import de.fridolin1.io.data.Read
+import de.fridolin1.io.file.PwdFileManager.getRootFolder
 import de.fridolin1.io.serial.SerialPortIO
 
+val rootFolder = getRootFolder()
 
 fun main() {
-    SerialPortIO.addListener(ExampleData)
+    SerialPortIO.addListener(Read)
+    SerialPortIO.addListener(GetPassword)
 }
 
 //fun sender() {
