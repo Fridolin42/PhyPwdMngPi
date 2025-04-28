@@ -55,7 +55,7 @@ object SerialPortIO {
 
     fun send(message: String) {
         println("Message sent: $message")
-        writer.write("message\n")
+        writer.write("$message\n")
         writer.flush()
     }
 }
