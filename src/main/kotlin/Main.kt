@@ -1,20 +1,23 @@
 package de.fridolin1
 
 import com.fazecast.jSerialComm.SerialPort
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
-import java.util.*
+
 
 fun main() {
-    val port = SerialPort.getCommPorts()[0]
-    println(port)
-    port.openPort()
-    val scanner = Scanner(port.inputStream)
-    val writer = BufferedWriter(OutputStreamWriter(port.outputStream))
-    while (true) {
-        if (scanner.hasNextLine()) {
-            println(scanner.nextLine())
-            writer.write("Message received")
+    println("starting")
+    val comPort = SerialPort.getCommPorts()[0]
+    comPort.openPort()
+    println(comPort)
+    comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0)
+    val inputStream = comPort.inputStream
+    try {
+        repeat(100000) {
+            print(inputStream.read().toChar())
+            Thread.sleep(10)
         }
+        inputStream.close()
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
+    comPort.closePort()
 }
