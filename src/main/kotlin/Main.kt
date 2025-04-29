@@ -13,8 +13,8 @@ import de.fridolin1.io.data.folder.UpdateFolder
 import de.fridolin1.io.file.PwdFileManager.getRootFolder
 import de.fridolin1.io.serial.SerialPortIO
 
-val rootFolder = getRootFolder()
 val listOfAllEntries = mutableListOf<SerializableEntry>()
+val rootFolder = getRootFolder()
 
 fun main() {
     //structure
