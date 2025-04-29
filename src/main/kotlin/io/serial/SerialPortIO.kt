@@ -50,7 +50,13 @@ object SerialPortIO {
     }
 
     private fun receive(message: String) {
-        listeners.filter { message.startsWith(it.path) }.forEach { it.receive(message) { msg -> send(msg) } }
+        listeners.filter { message.startsWith(it.path) }.forEach {
+            try {
+                it.receive(message) { msg -> send(msg) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     fun send(message: String) {
