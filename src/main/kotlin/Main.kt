@@ -28,6 +28,8 @@ fun main() {
     SerialPortIO.addListener(CreateFolder)
     SerialPortIO.addListener(UpdateFolder)
     SerialPortIO.addListener(DeleteFolder)
+    //setup done
+    println("listening...")
 }
 
 fun getFolderFromPath(path: String): SerializableFolder? {

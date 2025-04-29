@@ -11,7 +11,6 @@ object PwdFileManager {
         val reader = file.bufferedReader()
         val text = reader.readText()
         reader.close()
-        println(text)
         return Json.decodeFromString<SerializableFolder>(text)
     }
 

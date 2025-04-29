@@ -17,7 +17,7 @@ object SerialPortIO {
         if (!comPort.openPort())
             throw error("failed to open port ${comPort.descriptivePortName}")
         else
-            println("Opened port ${comPort.descriptivePortName}")
+            println("Opened port: ${comPort.descriptivePortName}")
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0)
         thread {
             try {
