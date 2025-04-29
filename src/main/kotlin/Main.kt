@@ -34,7 +34,7 @@ fun main() {
 
 fun getFolderFromPath(path: String): SerializableFolder? {
     var current = rootFolder
-    for (segment in path.split("/")) {
+    for (segment in path.split("/").filter { it.isNotEmpty() }) {
         val new = current.children.firstOrNull { it.name == segment }
         if (new == null) return null
         current = new
