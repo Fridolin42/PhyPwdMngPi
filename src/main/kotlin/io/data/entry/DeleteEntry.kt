@@ -9,8 +9,8 @@ import de.fridolin1.rootFolder
 object DeleteEntry : SerialListener {
     override val path = "/delete/entry"
 
-    override fun receive(message: String, sender: (String) -> Unit) {
-        val id = message.substringAfter("/delete/entry ").toLong()
+    override fun receive(path: String, message: String, sender: (String) -> Unit) {
+        val id = message.toLong()
         val entry = listOfAllEntries.firstOrNull { it.id == id }
         if (entry == null) {
             sender.invoke("<error> Cant find entry with id $id")

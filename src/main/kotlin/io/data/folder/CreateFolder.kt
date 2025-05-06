@@ -7,12 +7,12 @@ import de.fridolin1.io.serial.SerialListener
 object CreateFolder : SerialListener {
     override val path = "/create/folder"
 
-    override fun receive(message: String, sender: (String) -> Unit) {
-        val path = message.substringAfter("/create/folder ").substringBefore(" ")
-        val folderName = message.substringAfter("/create/folder ").substringAfter(" ")
-        val motherFolder = getFolderFromPath(path)
+    override fun receive(path: String, message: String, sender: (String) -> Unit) {
+        val folderPath = message.substringBefore(" ")
+        val folderName = message.substringAfter(" ")
+        val motherFolder = getFolderFromPath(folderPath)
         if (motherFolder == null) {
-            sender.invoke("<error> Cant find folder with path $path")
+            sender.invoke("<error> Cant find folder with path $folderPath")
             return
         }
         val newFolder = SerializableFolder(folderName, mutableListOf(), mutableListOf())

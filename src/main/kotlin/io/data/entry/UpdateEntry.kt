@@ -8,9 +8,8 @@ import kotlinx.serialization.json.Json
 object UpdateEntry : SerialListener {
     override val path = "/update/entry"
 
-    override fun receive(message: String, sender: (String) -> Unit) {
-        val raw = message.substringAfter("/update/entry ")
-        val updatedEntry = Json.decodeFromString<SerializableEntry>(raw)
+    override fun receive(path: String, message: String, sender: (String) -> Unit) {
+        val updatedEntry = Json.decodeFromString<SerializableEntry>(message)
         val id = updatedEntry.id
         val entry = listOfAllEntries.firstOrNull { it.id == id }
         if (entry == null) {

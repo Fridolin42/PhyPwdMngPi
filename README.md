@@ -9,4 +9,4 @@
 - copied ``SerialazibleEntry`` and ``SerialazibleFolder`` from the other Repo, added the password to the data structure
 - PwdFileManager to read/write the raw data from the save file
 - Remaining CRUD functions
-- 
+- Implement the AES Crypto class and encrypt the body of the communication

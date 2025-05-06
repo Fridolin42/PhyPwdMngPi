@@ -6,7 +6,7 @@ import de.fridolin1.rootFolder
 object ReadStructure : SerialListener {
     override val path = "/get/structure"
 
-    override fun receive(message: String, sender: (String) -> Unit) {
+    override fun receive(path: String, message: String, sender: (String) -> Unit) {
         sender.invoke(rootFolder.toString())
     }
 }

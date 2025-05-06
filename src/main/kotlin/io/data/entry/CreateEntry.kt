@@ -8,12 +8,12 @@ import kotlinx.serialization.json.Json
 object CreateEntry : SerialListener {
     override val path = "/create/entry"
 
-    override fun receive(message: String, sender: (String) -> Unit) {
-        val path = message.substringAfter("/create/entry ").substringBefore(" ")
-        val dataRaw = message.substringAfter("/create/entry ").substringAfter(" ")
-        val folder = getFolderFromPath(path)
+    override fun receive(path: String, message: String, sender: (String) -> Unit) {
+        val folderPath = message.substringBefore(" ")
+        val dataRaw = message.substringAfter(" ")
+        val folder = getFolderFromPath(folderPath)
         if (folder == null) {
-            sender.invoke("<error> Cant find folder with path $path")
+            sender.invoke("<error> Cant find folder with path $folderPath")
             return
         }
         val entry = Json.decodeFromString<SerializableEntry>(dataRaw)
