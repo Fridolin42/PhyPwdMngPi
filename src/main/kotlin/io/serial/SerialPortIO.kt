@@ -58,16 +58,17 @@ object SerialPortIO {
             try {
                 val message = if (it.rawBody) body.substringAfter(" ")
                 else aesModule.decrypt(body.substringAfter(" "))
-                it.receive(path, message) { msg -> send(msg) }
+                it.receive(path, message) { msg -> send(msg, it.rawBody) }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun send(message: String) {
+    fun send(message: String, raw: Boolean) {
         println("Message sent: $message")
-        writer.write("${aesModule.encrypt(message)}\n")
+        if (raw) writer.write("$message\n")
+        else writer.write("${aesModule.encrypt(message)}\n")
         writer.flush()
     }
 }
