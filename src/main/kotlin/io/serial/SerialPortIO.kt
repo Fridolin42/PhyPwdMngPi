@@ -1,7 +1,7 @@
 package de.fridolin1.io.serial
 
 import com.fazecast.jSerialComm.SerialPort
-import de.fridolin1.crypto.AES
+import crypto.AES
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
