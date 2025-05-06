@@ -53,10 +53,11 @@ object SerialPortIO {
 
     private fun receive(body: String) {
         val path = body.substringBefore(" ")
-        val message = aesModule.decrypt(body.substringAfter(" "))
 
         listeners.filter { path.startsWith(it.path) }.forEach {
             try {
+                val message = if (it.rawBody) body.substringAfter(" ")
+                else aesModule.decrypt(body.substringAfter(" "))
                 it.receive(path, message) { msg -> send(msg) }
             } catch (e: Exception) {
                 e.printStackTrace()
