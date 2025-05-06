@@ -57,6 +57,7 @@ object SerialPortIO {
         listeners.filter { path.startsWith(it.path) }.forEach {
             try {
                 val message = if (it.rawBody) body.substringAfter(" ")
+                else if (body.substringAfter(" ").isEmpty()) ""
                 else aesModule.decrypt(body.substringAfter(" "))
                 it.receive(path, message) { msg -> send(msg, it.rawBody) }
             } catch (e: Exception) {
