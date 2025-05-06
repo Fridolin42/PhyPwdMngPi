@@ -2,6 +2,7 @@ package de.fridolin1
 
 import data.SerializableEntry
 import data.SerializableFolder
+import de.fridolin1.io.data.Login
 import de.fridolin1.io.data.entry.CreateEntry
 import de.fridolin1.io.data.entry.DeleteEntry
 import de.fridolin1.io.data.entry.ReadPassword
@@ -17,8 +18,9 @@ val listOfAllEntries = mutableListOf<SerializableEntry>()
 val rootFolder = getRootFolder()
 
 fun main() {
-    //structure
+    //general Stuff
     SerialPortIO.addListener(ReadStructure)
+    SerialPortIO.addListener(Login)
     //entries
     SerialPortIO.addListener(ReadPassword)
     SerialPortIO.addListener(UpdateEntry)
