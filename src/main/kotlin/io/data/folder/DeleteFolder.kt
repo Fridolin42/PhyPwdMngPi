@@ -11,7 +11,7 @@ object DeleteFolder : SerialListener {
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val folderPath = message
         val motherPath = folderPath.substringBeforeLast("/")
-        println("Path: $path")
+        println("Path: $message")
         println("motherPath: $motherPath")
         val folder = getFolderFromPath(folderPath)
         val motherFolder = getFolderFromPath(motherPath)
