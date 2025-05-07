@@ -10,12 +10,18 @@ object DeleteFolder : SerialListener {
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val folderPath = message
         val motherPath = folderPath.substringBeforeLast("/")
-        val folder = getFolderFromPath(motherPath)
+        val folder = getFolderFromPath(folderPath)
+        val motherFolder = getFolderFromPath(motherPath)
         if (folder == null) {
             sender.invoke("<error> cant find folder $folderPath")
             return
         }
-        folder.entries.forEach { DeleteEntry.deleteEntry(it, folder) }
+        if (motherFolder == null) {
+            sender.invoke("<error> cant find folder $motherFolder")
+            return
+        }
+        motherFolder.children.remove(folder)
+        folder.entries.forEach { DeleteEntry.deleteEntry(it, motherFolder) }
         sender.invoke("<success>")
     }
 }
