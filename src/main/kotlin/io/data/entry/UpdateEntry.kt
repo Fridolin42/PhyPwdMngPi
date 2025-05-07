@@ -17,6 +17,6 @@ object UpdateEntry : SerialListener {
             return
         }
         entry.update(updatedEntry)
-        sender.invoke("<success> updated entry with id $id")
+        sender.invoke("<success>")
     }
 }
