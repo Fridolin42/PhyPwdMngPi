@@ -1,5 +1,6 @@
 package de.fridolin1.io.data.folder
 
+import data.SerializableFolder
 import de.fridolin1.getFolderFromPath
 import de.fridolin1.io.data.entry.DeleteEntry
 import de.fridolin1.io.serial.SerialListener
@@ -21,7 +22,17 @@ object DeleteFolder : SerialListener {
             return
         }
         motherFolder.children.remove(folder)
-        folder.entries.forEach { DeleteEntry.deleteEntry(it, motherFolder) }
+        deleteFolderEntries(folder)
+//        folder.entries.forEach { DeleteEntry.deleteEntry(it, motherFolder) }
         sender.invoke("<success>")
+    }
+
+    fun deleteFolderEntries(folder: SerializableFolder) {
+        while (folder.entries.isNotEmpty()) {
+            DeleteEntry.deleteEntry(folder.entries.first(), folder)
+        }
+        while (folder.children.isNotEmpty()) {
+            deleteFolderEntries(folder.children.first())
+        }
     }
 }
