@@ -7,6 +7,7 @@ import de.fridolin1.io.serial.SerialListener
 
 object DeleteFolder : SerialListener {
     override val path = "/delete/folder"
+    override val saveDataAfterCall = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val folderPath = if (message.length > 1 && message.last() == '/') message.substringBeforeLast("/") else message

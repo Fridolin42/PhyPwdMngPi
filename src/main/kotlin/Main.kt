@@ -4,19 +4,18 @@ import data.SerializableEntry
 import data.SerializableFolder
 import de.fridolin1.io.data.KeyExchange
 import de.fridolin1.io.data.Login
+import de.fridolin1.io.data.ReadStructure
 import de.fridolin1.io.data.entry.CreateEntry
 import de.fridolin1.io.data.entry.DeleteEntry
 import de.fridolin1.io.data.entry.ReadPassword
-import de.fridolin1.io.data.ReadStructure
 import de.fridolin1.io.data.entry.UpdateEntry
 import de.fridolin1.io.data.folder.CreateFolder
 import de.fridolin1.io.data.folder.DeleteFolder
 import de.fridolin1.io.data.folder.UpdateFolder
-import de.fridolin1.io.file.PwdFileManager.getRootFolder
 import de.fridolin1.io.serial.SerialPortIO
 
 val listOfAllEntries = mutableListOf<SerializableEntry>()
-val rootFolder = getRootFolder()
+lateinit var rootFolder: SerializableFolder
 
 fun main() {
     //general Stuff

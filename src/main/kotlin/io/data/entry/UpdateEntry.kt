@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 
 object UpdateEntry : SerialListener {
     override val path = "/update/entry"
+    override val saveDataAfterCall = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val updatedEntry = Json.decodeFromString<SerializableEntry>(message)

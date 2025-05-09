@@ -2,6 +2,7 @@ package de.fridolin1.io.serial
 
 import com.fazecast.jSerialComm.SerialPort
 import de.fridolin1.crypto.AES
+import de.fridolin1.io.file.PwdFileManager
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
@@ -64,6 +65,7 @@ object SerialPortIO {
                 else if (body.substringAfter(" ").isEmpty()) ""
                 else aesModule.decrypt(body.substringAfter(" "))
                 it.receive(path, message) { msg -> send(msg, it.rawBody) }
+                if (it.saveDataAfterCall) PwdFileManager.saveRootFolder()
             } catch (e: Exception) {
                 e.printStackTrace()
             }

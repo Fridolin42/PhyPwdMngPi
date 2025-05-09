@@ -11,3 +11,4 @@
 - Remaining CRUD functions
 - Implement the AES Crypto class and encrypt the body of the communication
 - key exchange with RSA
+- encrypted read and write operations

@@ -5,6 +5,7 @@ import de.fridolin1.io.serial.SerialListener
 
 object UpdateFolder : SerialListener {
     override val path = "/update/folder"
+    override val saveDataAfterCall = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val folderPath = message.substringBefore(" ")
