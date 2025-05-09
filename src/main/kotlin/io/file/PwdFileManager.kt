@@ -16,7 +16,7 @@ object PwdFileManager {
 
     private fun getRootFolder(): SerializableFolder {
         val reader = file.bufferedReader()
-        val encryptedText = reader.readText()
+        val encryptedText = reader.readLine()
         if (encryptedText.isEmpty()) return SerializableFolder("", mutableListOf(), mutableListOf())
         val text = aesModule.decrypt(encryptedText)
         reader.close()
