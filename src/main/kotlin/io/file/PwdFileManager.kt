@@ -10,6 +10,10 @@ object PwdFileManager {
     private val file = File("PhysicalPasswordManager.txt")
     private lateinit var aesModule: AES
 
+    init {
+        if (!file.exists()) file.createNewFile()
+    }
+
     private fun getRootFolder(): SerializableFolder {
         val reader = file.bufferedReader()
         val text = aesModule.decrypt(reader.readText())
