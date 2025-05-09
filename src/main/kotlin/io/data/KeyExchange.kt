@@ -12,6 +12,9 @@ object KeyExchange : SerialListener {
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         pcPublicKey = message
-        sender.invoke(rsaModule.encrypt(rsaModule.getPublicKey(), pcPublicKey))
+        val ownPublicKey = rsaModule.getPublicKey()
+        val parts = ownPublicKey.chunked(200).map { rsaModule.encrypt(it, pcPublicKey) }
+        val encryptedKey = parts.joinToString(" ")
+        sender.invoke(encryptedKey)
     }
 }
