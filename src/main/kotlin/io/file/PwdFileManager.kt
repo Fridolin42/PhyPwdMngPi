@@ -19,4 +19,9 @@ object PwdFileManager {
         writer.write(Json.encodeToString(folder))
         writer.close()
     }
+
+    fun startSession(password: String): Boolean {
+        println("Starting session with password: $password")
+        return true
+    }
 }

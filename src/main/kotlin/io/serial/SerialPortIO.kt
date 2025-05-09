@@ -1,7 +1,7 @@
 package de.fridolin1.io.serial
 
 import com.fazecast.jSerialComm.SerialPort
-import crypto.AES
+import de.fridolin1.crypto.AES
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
@@ -13,7 +13,7 @@ object SerialPortIO {
     private val comPort: SerialPort = SerialPort.getCommPorts()[0]
     private val reader = BufferedReader(InputStreamReader(comPort.inputStream))
     private val writer = BufferedWriter(OutputStreamWriter(comPort.outputStream))
-    private val aesModule = AES("123456")
+    private lateinit var aesModule: AES
 
     init {
         if (!comPort.openPort())
@@ -45,6 +45,10 @@ object SerialPortIO {
                 println("Port closed.")
             }
         }
+    }
+
+    fun setPassword(password: String) {
+        aesModule = AES(password)
     }
 
     fun addListener(listener: SerialListener) {

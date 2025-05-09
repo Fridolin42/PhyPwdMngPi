@@ -1,4 +1,4 @@
-package crypto
+package de.fridolin1.crypto
 
 import java.security.SecureRandom
 import java.util.Base64
