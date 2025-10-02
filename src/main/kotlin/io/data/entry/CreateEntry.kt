@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 object CreateEntry : SerialListener {
     override val path = "/create/entry"
     override val saveDataAfterCall = true
+    override val requireUserInteraction = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val folderPath = message.substringBefore(" ")

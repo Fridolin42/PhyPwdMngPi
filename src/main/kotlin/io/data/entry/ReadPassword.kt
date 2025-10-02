@@ -5,6 +5,7 @@ import de.fridolin1.listOfAllEntries
 
 object ReadPassword : SerialListener {
     override val path = "/get/password"
+    override val requireUserInteraction = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val id = message.toLong()

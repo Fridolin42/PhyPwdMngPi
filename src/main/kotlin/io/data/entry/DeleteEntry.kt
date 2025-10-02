@@ -9,6 +9,7 @@ import de.fridolin1.rootFolder
 object DeleteEntry : SerialListener {
     override val path = "/delete/entry"
     override val saveDataAfterCall = true
+    override val requireUserInteraction = true
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val id = message.toLong()

@@ -1,6 +1,13 @@
 package de.fridolin1.io.serial
 
 import com.fazecast.jSerialComm.SerialPort
+import com.pi4j.io.gpio.digital.PullResistance
+import com.pi4j.ktx.io.digital.digitalInput
+import com.pi4j.ktx.io.digital.onLow
+import com.pi4j.ktx.io.digital.piGpioProvider
+import com.pi4j.ktx.pi4j
+import de.fridolin1.PIN_BUTTON
+import de.fridolin1.USER_INTERACTION
 import de.fridolin1.crypto.AES
 import de.fridolin1.io.file.PwdFileManager
 import java.io.BufferedReader
@@ -15,8 +22,10 @@ object SerialPortIO {
     private val reader = BufferedReader(InputStreamReader(comPort.inputStream))
     private val writer = BufferedWriter(OutputStreamWriter(comPort.outputStream))
     private lateinit var aesModule: AES
+    private var button = false
 
     init {
+        //serial communication
         if (!comPort.openPort())
             throw error("failed to open port ${comPort.descriptivePortName}")
         else
@@ -46,6 +55,18 @@ object SerialPortIO {
                 println("Port closed.")
             }
         }
+        //button
+        pi4j {
+            digitalInput(PIN_BUTTON) {
+                id("button")
+                name("Press button")
+                pull(PullResistance.PULL_DOWN)
+                debounce(50L)
+                piGpioProvider()
+            }.onLow {
+                button = true
+            }
+        }
     }
 
     fun setPassword(password: String) {
@@ -61,6 +82,7 @@ object SerialPortIO {
 
         listeners.filter { path.startsWith(it.path) }.forEach {
             try {
+                if (USER_INTERACTION && it.requireUserInteraction && !waitForButton()) return
                 val message = if (it.rawBody) body.substringAfter(" ")
                 else if (body.substringAfter(" ").isEmpty()) ""
                 else aesModule.decrypt(body.substringAfter(" "))
@@ -77,5 +99,16 @@ object SerialPortIO {
         if (raw) writer.write("$message\n")
         else writer.write("${aesModule.encrypt(message)}\n")
         writer.flush()
+    }
+
+    fun waitForButton(): Boolean {
+        button = false
+        var timer = 0
+        while (!button) {
+            if (timer > 20000) return false //20 seconds for pressing the button
+            Thread.sleep(10)
+            timer += 10
+        }
+        return true
     }
 }

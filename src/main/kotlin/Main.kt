@@ -17,6 +17,9 @@ import de.fridolin1.io.serial.SerialPortIO
 val listOfAllEntries = mutableListOf<SerializableEntry>()
 lateinit var rootFolder: SerializableFolder
 
+val USER_INTERACTION = false
+val PIN_BUTTON = 24
+
 fun main() {
     //general Stuff
     SerialPortIO.addListener(KeyExchange)

@@ -9,6 +9,7 @@ object KeyExchange : SerialListener {
     val rsaModule = RSA()
     lateinit var pcPublicKey: String
         private set
+    override val requireUserInteraction = false
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         pcPublicKey = message

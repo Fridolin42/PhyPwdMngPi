@@ -7,6 +7,7 @@ import de.fridolin1.io.serial.SerialPortIO
 object Login : SerialListener {
     override val path = "/login"
     override val rawBody = true
+    override val requireUserInteraction = false
 
     override fun receive(path: String, message: String, sender: (String) -> Unit) {
         val passwordEncrypted = message.substringBefore(" ")

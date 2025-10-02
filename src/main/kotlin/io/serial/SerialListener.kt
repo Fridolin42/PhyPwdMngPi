@@ -6,6 +6,7 @@ interface SerialListener {
         get() = false
     val saveDataAfterCall: Boolean
         get() = false
+    val requireUserInteraction: Boolean
 
     fun receive(path: String, message: String, sender: (message: String) -> Unit)
 }
